@@ -174,7 +174,7 @@ else
   uuid4=($(uuidgen))
 
   # get pack description if we have one
-  pack_desc="$(jq -r '(.pack.description // "Geyser 3D Items Resource Pack")' ./pack.mcmeta)"
+  pack_desc="$(jq -r '(.pack.description // "§bVoxen Development")' ./pack.mcmeta)"
 
   # generate rp manifest.json
   status_message process "Generating resource pack manifest"
@@ -182,7 +182,7 @@ else
   {
       "format_version": 2,
       "header": {
-          "description": "Adds 3D items for use with a Geyser proxy",
+          "description": "§bVoxen Development",
           "name": $pack_desc,
           "uuid": ($uuid1 | ascii_downcase),
           "version": [1, 0, 0],
@@ -190,7 +190,7 @@ else
       },
       "modules": [
           {
-              "description": "Adds 3D items for use with a Geyser proxy",
+              "description": "§bVoxen Development",
               "type": "resources",
               "uuid": ($uuid2 | ascii_downcase),
               "version": [1, 0, 0]
@@ -205,7 +205,7 @@ else
   {
       "format_version": 2,
       "header": {
-          "description": "Adds 3D items for use with a Geyser proxy",
+          "description": "§bVoxen Development",
           "name": $pack_desc,
           "uuid": ($uuid3 | ascii_downcase),
           "version": [1, 0, 0],
@@ -213,7 +213,7 @@ else
       },
       "modules": [
           {
-              "description": "Adds 3D items for use with a Geyser proxy",
+              "description": "§bVoxen Development",
               "type": "data",
               "uuid": ($uuid4 | ascii_downcase),
               "version": [1, 0, 0]
