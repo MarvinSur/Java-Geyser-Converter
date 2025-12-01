@@ -1,6 +1,6 @@
 name: Pack Conversion
 description: Request an automated pack conversion
-title: "[Pack]: "
+title: "[VoxenPack]: "
 labels: ["conversion"]
 body:
   - type: markdown
