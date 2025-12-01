@@ -157,8 +157,9 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           body: |
             ## :sparkles: Pack telah selesai di convert! :sparkles:
-            - Download pack nya dari halaman, [action run][1]. :arrow_double_down:
-            - Atau klik link pada bawah ini:
+            - Download pack nya dari halaman action di repository ini.
+            - Atau klik link pada bawah ini :arrow_double_down:
+            - [Download Pack Hasil Convert][1].
 
             [1]: https://github.com/MarvinSur/Voxen-Convert-Geyser/actions/runs/${{ github.run_id}}
           reactions: 'rocket'
