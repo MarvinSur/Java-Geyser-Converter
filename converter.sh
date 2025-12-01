@@ -174,7 +174,7 @@ else
   uuid4=($(uuidgen))
 
   # get pack description if we have one
-  pack_desc="$(jq -r '(.pack.description // "Geyser 3D Items Resource Pack")' ./pack.mcmeta)"
+  pack_desc="$(jq -r '(.pack.description // "Voxen Development Converter")' ./pack.mcmeta)"
 
   # generate rp manifest.json
   status_message process "Generating resource pack manifest"
@@ -182,7 +182,7 @@ else
   {
       "format_version": 2,
       "header": {
-          "description": "Adds 3D items for use with a Geyser proxy",
+          "description": "Voxen Development Converter",
           "name": $pack_desc,
           "uuid": ($uuid1 | ascii_downcase),
           "version": [1, 0, 0],
@@ -190,7 +190,7 @@ else
       },
       "modules": [
           {
-              "description": "Adds 3D items for use with a Geyser proxy",
+              "description": "Voxen Development Converter",
               "type": "resources",
               "uuid": ($uuid2 | ascii_downcase),
               "version": [1, 0, 0]
@@ -205,7 +205,7 @@ else
   {
       "format_version": 2,
       "header": {
-          "description": "Adds 3D items for use with a Geyser proxy",
+          "description": "Voxen Development Converter",
           "name": $pack_desc,
           "uuid": ($uuid3 | ascii_downcase),
           "version": [1, 0, 0],
@@ -213,7 +213,7 @@ else
       },
       "modules": [
           {
-              "description": "Adds 3D items for use with a Geyser proxy",
+              "description": "Voxen Development Converter",
               "type": "data",
               "uuid": ($uuid4 | ascii_downcase),
               "version": [1, 0, 0]
@@ -348,7 +348,7 @@ if contains(":") then sub("\\:(.+)"; "") else "minecraft" end
 
 }) | .[]]
 | walk(if type == "object" then with_entries(select(.value != null)) else . end)
-| to_entries | map( ((.value.geyserID = "gmdl_\(1+.key)") | .value))
+| to_entries | map( ((.value.geyserID = "voxen_\(1+.key)") | .value))
 | INDEX(.geyserID)
 
 ' ./assets/minecraft/models/item/*.json > config.json || { status_message error "Invalid JSON exists in block or item folder! See above log."; exit 1; }
@@ -437,7 +437,7 @@ jq --slurpfile hashmap scratch_files/hashmap.json '
     map_values(
         .geyserID as $gid 
         | . += {
-          "path_hash": ("gmdl_" + ($hashmap[] | .[($gid)] | .[0])),
+          "path_hash": ("voxen_" + ($hashmap[] | .[($gid)] | .[0])),
           "geometry": ("geo_" + ($hashmap[] | .[($gid)] | .[1]))
           }
     )
@@ -459,7 +459,7 @@ uuid3=($(uuidgen))
 uuid4=($(uuidgen))
 
 # get pack description if we have one
-pack_desc="$(jq -r '(.pack.description // "Geyser 3D Items Resource Pack")' ./pack.mcmeta)"
+pack_desc="$(jq -r '(.pack.description // "Voxen Development Converter")' ./pack.mcmeta)"
 
 # generate rp manifest.json
 status_message process "Generating resource pack manifest"
@@ -467,7 +467,7 @@ jq -c --arg pack_desc "${pack_desc}" --arg uuid1 "${uuid1}" --arg uuid2 "${uuid2
 {
     "format_version": 2,
     "header": {
-        "description": "Adds 3D items for use with a Geyser proxy",
+        "description": "Voxen Development Converter",
         "name": $pack_desc,
         "uuid": ($uuid1 | ascii_downcase),
         "version": [1, 0, 0],
@@ -475,7 +475,7 @@ jq -c --arg pack_desc "${pack_desc}" --arg uuid1 "${uuid1}" --arg uuid2 "${uuid2
     },
     "modules": [
         {
-            "description": "Adds 3D items for use with a Geyser proxy",
+            "description": "Voxen Development Converter",
             "type": "resources",
             "uuid": ($uuid2 | ascii_downcase),
             "version": [1, 0, 0]
@@ -485,12 +485,12 @@ jq -c --arg pack_desc "${pack_desc}" --arg uuid1 "${uuid1}" --arg uuid2 "${uuid2
 ' | sponge ./target/rp/manifest.json
 
 # generate bp manifest.json
-status_message process "Generating behavior pack manifest"
+status_message process "Voxen Development Converter"
 jq -c --arg pack_desc "${pack_desc}" --arg uuid1 "${uuid1}" --arg uuid3 "${uuid3}" --arg uuid4 "${uuid4}" -n '
 {
     "format_version": 2,
     "header": {
-        "description": "Adds 3D items for use with a Geyser proxy",
+        "description": "Voxen Development Converter",
         "name": $pack_desc,
         "uuid": ($uuid3 | ascii_downcase),
         "version": [1, 0, 0],
@@ -498,7 +498,7 @@ jq -c --arg pack_desc "${pack_desc}" --arg uuid1 "${uuid1}" --arg uuid3 "${uuid3
     },
     "modules": [
         {
-            "description": "Adds 3D items for use with a Geyser proxy",
+            "description": "Voxen Development Converter",
             "type": "data",
             "uuid": ($uuid4 | ascii_downcase),
             "version": [1, 0, 0]
@@ -1289,7 +1289,7 @@ if [ -f sprites.json ]; then
     do write_id_hash "${predicate}" "${icon}"  "scratch_files/sprite_hashes.csv" &
   done < scratch_files/sprites.csv > /dev/null
 
-  jq -cR 'split(",")' scratch_files/sprite_hashes.csv | jq -s 'map({("gmdl_" + .[1]): {"textures": .[0]}}) | add' > scratch_files/sprite_hashmap.json
+  jq -cR 'split(",")' scratch_files/sprite_hashes.csv | jq -s 'map({("voxen_" + .[1]): {"textures": .[0]}}) | add' > scratch_files/sprite_hashmap.json
 
   jq -s '
   .[0] as $icon_sprites
